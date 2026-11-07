@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IT 개념 마스터</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Pretendard:wght@400;500;600;700&display=swap');
+        body {
+            font-family: 'Pretendard', sans-serif;
+            background-color: #f3f4f6;
+        }
+        .correct { color: #16a34a; font-weight: bold; }
+        .incorrect { color: #dc2626; font-weight: bold; }
+        .feedback { display: none; margin-top: 0.5rem; font-size: 0.875rem; }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <div class="max-w-4xl mx-auto p-4 py-8">
+        <!-- Header -->
+        <header class="text-center mb-8">
+            <h1 class="text-3xl md:text-4xl font-bold text-indigo-600 mb-2">IT 핵심 개념 마스터</h1>
+            <p class="text-gray-500">주요 IT 용어를 학습하고 퀴즈를 통해 실력을 점검해보세요.</p>
+        </header>
+
+        <!-- Navigation Tabs -->
+        <div class="flex justify-center mb-6 space-x-2">
+            <button id="tab-learn" class="px-6 py-2 bg-indigo-600 text-white rounded-md font-semibold transition hover:bg-indigo-700" onclick="showTab('learn')">개념 학습하기</button>
+            <button id="tab-quiz" class="px-6 py-2 bg-white text-gray-700 border border-gray-300 rounded-md font-semibold transition hover:bg-gray-100" onclick="showTab('quiz')">퀴즈 풀기</button>
+        </div>
+
+        <!-- Learning Section -->
+        <div id="section-learn" class="space-y-4">
+            
+            <!-- New Diagram 2: Connection Process Flowchart -->
+            <div class="bg-white p-6 md:p-8 rounded-lg shadow-sm mb-6">
+                <h2 class="text-2xl font-bold border-b pb-3 mb-6 text-gray-800">인터넷 주소 입력 시 네트워크 접속 과정</h2>
+                <div class="flex flex-col md:flex-row items-stretch justify-between gap-4">
+                    
+                    <!-- Step 1 -->
+                    <div class="flex-1 bg-blue-50 border border-blue-200 p-4 rounded-xl flex flex-col items-center text-center shadow-sm">
+                        <div class="w-12 h-12 bg-blue-500 text-white rounded-full flex items-center justify-center font-bold text-xl mb-3 shadow-md">1</div>
+                        <h3 class="font-bold text-gray-800 mb-2">URL 입력</h3>
+                        <p class="text-sm text-gray-600">사용자가 웹 브라우저 주소창에 도메인 이름(예: example.com)을 입력합니다.</p>
+                    </div>
+
+                    <!-- Arrow -->
+                    <div class="hidden md:flex items-center text-blue-300"><svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg></div>
+                    <div class="md:hidden flex justify-center text-blue-300 py-1"><svg class="w-8 h-8 rotate-90" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg></div>
+
+                    <!-- Step 2 -->
+                    <div class="flex-1 bg-indigo-50 border border-indigo-200 p-4 rounded-xl flex flex-col items-center text-center shadow-sm">
+                        <div class="w-12 h-12 bg-indigo-500 text-white rounded-full flex items-center justify-center font-bold text-xl mb-3 shadow-md">2</div>
+                        <h3 class="font-bold text-gray-800 mb-2">IP 주소 변환 (DNS)</h3>
+                        <p class="text-sm text-gray-600">DNS 서버에 도메인 이름을 질의하여 실제 목적지의 IP 주소를 받아옵니다.</p>
+                    </div>
+
+                    <!-- Arrow -->
+                    <div class="hidden md:flex items-center text-indigo-300"><svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg></div>
+                    <div class="md:hidden flex justify-center text-indigo-300 py-1"><svg class="w-8 h-8 rotate-90" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg></div>
+
+                    <!-- Step 3 -->
+                    <div class="flex-1 bg-purple-50 border border-purple-200 p-4 rounded-xl flex flex-col items-center text-center shadow-sm">
+                        <div class="w-12 h-12 bg-purple-500 text-white rounded-full flex items-center justify-center font-bold text-xl mb-3 shadow-md">3</div>
+                        <h3 class="font-bold text-gray-800 mb-2">웹 서버 요청</h3>
+                        <p class="text-sm text-gray-600">확인된 IP 주소를 통해 목적지 웹 서버를 찾아가 웹 페이지를 요청(Request)합니다.</p>
+                    </div>
+
+                    <!-- Arrow -->
+                    <div class="hidden md:flex items-center text-purple-300"><svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg></div>
+                    <div class="md:hidden flex justify-center text-purple-300 py-1"><svg class="w-8 h-8 rotate-90" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg></div>
+
+                    <!-- Step 4 -->
+                    <div class="flex-1 bg-green-50 border border-green-200 p-4 rounded-xl flex flex-col items-center text-center shadow-sm">
+                        <div class="w-12 h-12 bg-green-500 text-white rounded-full flex items-center justify-center font-bold text-xl mb-3 shadow-md">4</div>
+                        <h3 class="font-bold text-gray-800 mb-2">웹 페이지 응답</h3>
+                        <p class="text-sm text-gray-600">웹 서버가 요청받은 데이터를 브라우저로 전송(Response)하여 화면에 띄웁니다.</p>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Diagram Section (Existing) -->
+            <div class="bg-white p-6 md:p-8 rounded-lg shadow-sm mb-6">
+                <h2 class="text-2xl font-bold border-b pb-3 mb-6 text-gray-800">인터넷 주소 체계의 이해</h2>
+                
+                <!-- Visual Diagram -->
+                <div class="flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0 md:space-x-4 bg-gray-50 p-6 rounded-xl border border-gray-200">
+                    <!-- User PC -->
+                    <div class="flex flex-col items-center flex-1 w-full md:w-auto">
+                        <div class="w-16 h-16 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mb-3 shadow-sm border border-blue-200">
+                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                        </div>
+                        <div class="text-center">
+                            <p class="font-bold text-gray-800">사용자 (PC/스마트폰)</p>
+                            <p class="text-sm text-gray-500 mt-1 bg-white px-2 py-1 rounded border">"example.com" 입력</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Arrow -->
+                    <div class="text-indigo-400 hidden md:flex flex-col items-center">
+                        <span class="text-xs font-semibold mb-1">도메인 질의</span>
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    </div>
+                    <div class="text-indigo-400 md:hidden flex items-center space-x-2">
+                        <span class="text-xs font-semibold">도메인 질의</span>
+                        <svg class="w-5 h-5 rotate-90" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    </div>
+
+                    <!-- DNS -->
+                    <div class="flex flex-col items-center flex-1 w-full md:w-auto">
+                        <div class="w-16 h-16 bg-indigo-100 text-indigo-600 rounded-full flex items-center justify-center mb-3 shadow-sm border border-indigo-200">
+                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01"></path></svg>
+                        </div>
+                        <div class="text-center">
+                            <p class="font-bold text-gray-800">DNS 서버</p>
+                            <p class="text-sm text-gray-500 mt-1 bg-white px-2 py-1 rounded border">IP 변환 (192.0.2.1)</p>
+                        </div>
+                    </div>
+
+                    <!-- Arrow -->
+                    <div class="text-indigo-400 hidden md:flex flex-col items-center">
+                        <span class="text-xs font-semibold mb-1">IP로 접속</span>
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    </div>
+                    <div class="text-indigo-400 md:hidden flex items-center space-x-2">
+                        <span class="text-xs font-semibold">IP로 접속</span>
+                        <svg class="w-5 h-5 rotate-90" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    </div>
+
+                    <!-- Gateway / Router -->
+                    <div class="flex flex-col items-center flex-1 w-full md:w-auto">
+                        <div class="w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center mb-3 shadow-sm border border-green-200">
+                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                        </div>
+                        <div class="text-center">
+                            <p class="font-bold text-gray-800">게이트웨이/라우터</p>
+                            <p class="text-sm text-gray-500 mt-1 bg-white px-2 py-1 rounded border">네트워크 간 통로</p>
+                        </div>
+                    </div>
+
+                    <!-- Arrow -->
+                    <div class="text-indigo-400 hidden md:flex flex-col items-center">
+                        <span class="text-xs font-semibold mb-1">데이터 전송</span>
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    </div>
+                    <div class="text-indigo-400 md:hidden flex items-center space-x-2">
+                        <span class="text-xs font-semibold">데이터 전송</span>
+                        <svg class="w-5 h-5 rotate-90" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    </div>
+
+                    <!-- Target Server -->
+                    <div class="flex flex-col items-center flex-1 w-full md:w-auto">
+                        <div class="w-16 h-16 bg-purple-100 text-purple-600 rounded-full flex items-center justify-center mb-3 shadow-sm border border-purple-200">
+                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+                        </div>
+                        <div class="text-center">
+                            <p class="font-bold text-gray-800">서버 컴퓨터</p>
+                            <p class="text-sm text-gray-500 mt-1 bg-white px-2 py-1 rounded border">웹 페이지 제공</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-6 p-4 bg-blue-50 border-l-4 border-blue-500 text-sm text-gray-700 leading-relaxed rounded-r-lg">
+                    사용자가 웹 브라우저에 사람이 기억하기 쉬운 <strong>도메인 이름</strong>을 입력하면, <strong>DNS(도메인 이름 서버)</strong>가 이를 컴퓨터 통신에 필요한 <strong>IP 주소</strong>로 변환합니다. 이후 데이터는 다른 네트워크로 나가는 출입구 역할을 하는 <strong>게이트웨이</strong>를 거쳐 최종 목적지인 <strong>서버 컴퓨터</strong>로 전달되며, 서버는 요청받은 웹 페이지 데이터를 다시 사용자에게 보내줍니다.
+                </div>
+            </div>
+
+            <div class="bg-white p-6 rounded-lg shadow-sm mb-4">
+                <h2 class="text-xl font-bold border-b pb-2 mb-4 text-gray-700">학습 자료 (총 28개 개념)</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="concept-list">
+                    <!-- Concepts will be injected here via JS -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Quiz Section -->
+        <div id="section-quiz" class="hidden">
+            <div class="bg-white p-6 md:p-8 rounded-lg shadow-sm">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6">개념 확인 퀴즈</h2>
+                <p class="text-sm text-gray-500 mb-6">모든 문제를 풀고 하단의 '제출 및 채점' 버튼을 눌러주세요. (총 10문제, 각 10점)</p>
+                
+                <form id="quiz-form" onsubmit="submitQuiz(event)">
+                    <!-- Questions will be injected here via JS -->
+                    <div id="questions-container" class="space-y-8 mb-8"></div>
+
+                    <!-- Result Area -->
+                    <div id="result-area" class="hidden mb-6 p-6 bg-indigo-50 border border-indigo-100 rounded-lg text-center">
+                        <h3 class="text-2xl font-bold text-indigo-700 mb-2">채점 결과</h3>
+                        <p class="text-4xl font-extrabold text-gray-800 mb-2"><span id="total-score">0</span> / 100 점</p>
+                        <p id="result-message" class="text-gray-600"></p>
+                    </div>
+
+                    <button type="submit" id="submit-btn" class="w-full py-4 bg-indigo-600 text-white rounded-lg font-bold text-lg hover:bg-indigo-700 transition shadow-md">제출 및 채점</button>
+                    <button type="button" id="retry-btn" class="hidden w-full py-4 bg-gray-200 text-gray-800 rounded-lg font-bold text-lg hover:bg-gray-300 transition shadow-sm mt-4" onclick="resetQuiz()">다시 풀기</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 1. 학습 데이터 (Concepts)
+        const concepts = [
+            { title: "사물 인터넷(IoT)", desc: "다양한 사물에 센서와 통신 기능을 내장하여 인터넷에 연결해 데이터를 주고받는 기술." },
+            { title: "블록체인", desc: "데이터를 블록 형태로 연결하여 여러 컴퓨터에 분산 저장함으로써 누구나 열람할 수 있지만 위조는 불가능하게 만든 기술." },
+            { title: "웨어러블 장치", desc: "스마트워치, 스마트안경, 스마트의류처럼 사용자가 몸에 착용하고 다닐 수 있는 형태의 스마트 기기." },
+            { title: "증강현실(AR)", desc: "현실 세계의 배경 위에 3차원 가상 이미지를 겹쳐서 하나의 영상으로 보여주는 기술 (예: 포켓몬 고)." },
+            { title: "가상현실(VR)", desc: "컴퓨터로 만들어진 완전한 가상의 세계에서 사람이 실제와 같은 체험을 할 수 있도록 하는 기술." },
+            { title: "가명정보", desc: "개인정보의 일부를 삭제하거나 대체하여 추가 정보 없이는 특정 개인을 알아볼 수 없도록 처리한 정보." },
+            { title: "로그", desc: "컴퓨터 시스템, 네트워크, 서버 등에서 발생하는 사건이나 상태 변화, 사용 기록 등을 시간순으로 남긴 데이터." },
+            { title: "쿠키", desc: "사용자가 웹사이트에 접속할 때 사용자의 컴퓨터(브라우저)에 임시로 저장되는 작은 텍스트 정보 파일." },
+            { title: "디지털 워터마킹", desc: "디지털 콘텐츠에 원작자의 저작권 정보(로고 등)를 눈에 띄지 않게 몰래 삽입하여 불법 복제를 막는 기술." },
+            { title: "디지털 핑거 프린팅", desc: "디지털 콘텐츠를 구매한 사용자의 정보를 삽입하여 불법 배포가 발생했을 때 유포자를 추적할 수 있는 기술." },
+            { title: "서버 컴퓨터", desc: "네트워크를 통해 다른 컴퓨터(클라이언트)의 요청을 받아 서비스나 자원(데이터)을 제공하는 컴퓨터." },
+            { title: "프로토콜", desc: "네트워크상에서 컴퓨터 간에 데이터를 원활하게 주고받기 위해 서로 약속해 놓은 통신 규칙." },
+            { title: "IP주소", desc: "인터넷에 연결된 모든 기기(컴퓨터, 스마트폰 등)를 식별하기 위해 부여된 고유한 주소 번호." },
+            { title: "도메인 이름 서버(DNS)", desc: "사람이 기억하기 쉬운 문자 형태의 도메인 이름(예: google.com)을 숫자로 된 IP 주소로 변환해 주는 시스템." },
+            { title: "스트리밍", desc: "인터넷에서 영상이나 음성 파일을 다운로드 완료할 때까지 기다리지 않고 실시간으로 재생하는 기술." },
+            { title: "임베디드 시스템", desc: "특정한 목적을 수행하기 위해 하드웨어 기기 내부에 소프트웨어가 결합되어 내장된 마이크로프로세서 시스템 (예: 밥솥, 자동차)." },
+            { title: "상용 소프트웨어", desc: "비용을 지불하고 정식으로 구매해야만 사용할 수 있는 프로그램." },
+            { title: "쉐어웨어", 일: "일정 기간 동안 무료로 사용해 볼 수 있게 제공되며, 그 이후 계속 사용하려면 돈을 지불하고 정식 버전을 사야 하는 프로그램.", desc: "일정 기간 동안 무료로 사용해 본 후 계속 사용하려면 비용을 지불해야 하는 프로그램." },
+            { title: "프리웨어", desc: "개인 누구나 기간이나 기능 제한 없이 무료로 사용할 수 있도록 공개된 프로그램." },
+            { title: "오픈 소스 소프트웨어", desc: "프로그램의 설계도인 소스 코드가 공개되어 있어 누구나 자유롭게 수정하고 재배포할 수 있는 소프트웨어." },
+            { title: "코덱(CODEC)", desc: "용량이 큰 음성 또는 영상 데이터를 전송/저장하기 위해 압축(인코딩)하고, 다시 재생하기 위해 복원(디코딩)하는 기술." },
+            { title: "빅데이터", desc: "기존의 데이터베이스 관리 도구로는 수집, 저장, 분석하기 어려울 정도로 방대하고 형태가 복잡한 데이터 집합." },
+            { title: "도메인 이름", desc: "숫자로 된 IP 주소를 사람이 기억하고 입력하기 쉽게 문자로 표현한 인터넷 주소입니다. (예: google.com)" },
+            { title: "게이트웨이", desc: "서로 다른 네트워크를 연결해 주는 출입구 역할을 하는 네트워크 통신 장비나 소프트웨어입니다." },
+            { title: "DHCP", desc: "네트워크에 접속하는 기기들(스마트폰, PC 등)에게 자동으로 IP 주소, 서브넷 마스크, 게이트웨이 등의 설정을 할당해 주는 프로토콜입니다." },
+            { title: "서브넷 마스크", desc: "IP 주소에서 어느 부분이 네트워크 전체를 가리키는 주소이고, 어느 부분이 특정 기기(호스트)를 가리키는 주소인지 구분하기 위해 사용하는 특수한 번호입니다." },
+            { title: "근거리무선통신(NFC)", desc: "10cm 이내의 아주 가까운 거리에서 단말기 간에 데이터를 양방향으로 전송하는 무선 통신 기술입니다. (예: 교통카드, 스마트폰 결제)" },
+            { title: "블루투스", desc: "휴대폰, 노트북, 무선 이어폰 등의 기기들을 비교적 가까운 거리에서 무선으로 연결해 주는 근거리 무선 통신 표준 기술입니다." }
+        ];
+
+        // 2. 퀴즈 데이터
+        const quizData = [
+            {
+                type: "mcq",
+                question: "현실 세계의 배경 위에 3차원 가상 이미지를 겹쳐서 보여주는 기술은 무엇입니까?",
+                options: ["가상현실(VR)", "증강현실(AR)", "스트리밍", "임베디드 시스템"],
+                answer: 1 // 0-based index
+            },
+            {
+                type: "mcq",
+                question: "불법 배포자를 추적하기 위해 구매자의 고유 정보를 디지털 콘텐츠에 삽입하는 기술은?",
+                options: ["디지털 핑거 프린팅", "디지털 워터마킹", "블록체인", "쿠키"],
+                answer: 0
+            },
+            {
+                type: "mcq",
+                question: "다음 중 사람이 읽기 쉬운 문자 형태의 도메인 이름을 숫자로 된 IP 주소로 변환해 주는 시스템은?",
+                options: ["프로토콜", "서버 컴퓨터", "도메인 이름 서버(DNS)", "로그"],
+                answer: 2
+            },
+            {
+                type: "mcq",
+                question: "특정 목적을 수행하기 위해 전기밥솥, 스마트 TV 등의 기기 내부에 특화되어 내장된 컴퓨터 시스템을 무엇이라 합니까?",
+                options: ["서버 컴퓨터", "웨어러블 장치", "빅데이터", "임베디드 시스템"],
+                answer: 3
+            },
+            {
+                type: "mcq",
+                question: "네트워크상에서 컴퓨터 간에 데이터를 주고받기 위해 정해 놓은 '통신 규칙'을 뜻하는 용어는?",
+                options: ["코덱(CODEC)", "IP주소", "프로토콜", "쿠키"],
+                answer: 2
+            },
+            {
+                type: "mcq",
+                question: "일정 기간 동안 무료로 사용해 본 후, 계속 사용하려면 비용을 지불하고 정식 버전을 구매해야 하는 소프트웨어는?",
+                options: ["상용 소프트웨어", "쉐어웨어", "프리웨어", "오픈 소스 소프트웨어"],
+                answer: 1
+            },
+            {
+                type: "mcq",
+                question: "영상이나 음성 등의 대용량 멀티미디어 데이터를 압축(인코딩)하고 복원(디코딩)하는 기술은?",
+                options: ["스트리밍", "코덱(CODEC)", "로그", "DNS"],
+                answer: 1
+            },
+            {
+                type: "mcq",
+                question: "개인정보의 일부를 삭제하거나 대체하여, 추가 정보 없이는 특정 개인을 식별할 수 없도록 안전하게 처리한 정보를 무엇이라 합니까?",
+                options: ["가명정보", "쿠키", "빅데이터", "디지털 워터마킹"],
+                answer: 0
+            },
+            {
+                type: "mcq",
+                question: "사용자가 웹사이트에 접속할 때 브라우저를 통해 사용자의 컴퓨터에 임시로 저장되는 작은 텍스트 정보 파일은?",
+                options: ["로그", "쿠키", "프로토콜", "IP주소"],
+                answer: 1
+            },
+            {
+                type: "short",
+                question: "[주관식] 데이터를 블록 형태로 연결하고 여러 컴퓨터에 분산 저장하여, 누구나 열람할 수 있지만 위조나 변조는 불가능하게 만드는 기술을 무엇이라고 합니까? (띄어쓰기 없이 한글로 입력)",
+                answer: "블록체인"
+            }
+        ];
+
+        // 3. UI 렌더링
+        window.onload = () => {
+            renderConcepts();
+            renderQuiz();
+        };
+
+        function renderConcepts() {
+            const container = document.getElementById('concept-list');
+            concepts.forEach(concept => {
+                const div = document.createElement('div');
+                div.className = "p-4 border rounded-lg hover:shadow-md transition bg-gray-50";
+                div.innerHTML = `
+                    <h3 class="font-bold text-indigo-600 mb-1 text-lg">${concept.title}</h3>
+                    <p class="text-sm text-gray-700 leading-relaxed">${concept.desc}</p>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        function renderQuiz() {
+            const container = document.getElementById('questions-container');
+            container.innerHTML = ''; // clear
+
+            quizData.forEach((q, index) => {
+                const qDiv = document.createElement('div');
+                qDiv.className = "pb-4 border-b border-gray-200";
+                qDiv.id = `q-container-${index}`;
+                
+                let html = `<p class="font-bold text-gray-800 mb-3 text-lg">${index + 1}. ${q.question}</p>`;
+                
+                if (q.type === 'mcq') {
+                    html += `<div class="space-y-2">`;
+                    q.options.forEach((opt, optIndex) => {
+                        html += `
+                            <label class="flex items-center space-x-3 p-2 rounded hover:bg-indigo-50 cursor-pointer transition">
+                                <input type="radio" name="q${index}" value="${optIndex}" class="form-radio text-indigo-600 h-5 w-5" required>
+                                <span class="text-gray-700">${opt}</span>
+                            </label>
+                        `;
+                    });
+                    html += `</div>`;
+                } else if (q.type === 'short') {
+                    html += `
+                        <input type="text" name="q${index}" placeholder="정답을 입력하세요" class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-indigo-500 outline-none" required>
+                    `;
+                }
+                
+                html += `<div id="feedback-${index}" class="feedback"></div>`;
+                qDiv.innerHTML = html;
+                container.appendChild(qDiv);
+            });
+        }
+
+        // 4. 로직 함수
+        function showTab(tabName) {
+            const btnLearn = document.getElementById('tab-learn');
+            const btnQuiz = document.getElementById('tab-quiz');
+            const secLearn = document.getElementById('section-learn');
+            const secQuiz = document.getElementById('section-quiz');
+
+            if (tabName === 'learn') {
+                secLearn.classList.remove('hidden');
+                secQuiz.classList.add('hidden');
+                btnLearn.className = "px-6 py-2 bg-indigo-600 text-white rounded-md font-semibold transition";
+                btnQuiz.className = "px-6 py-2 bg-white text-gray-700 border border-gray-300 rounded-md font-semibold transition hover:bg-gray-100";
+            } else {
+                secLearn.classList.add('hidden');
+                secQuiz.classList.remove('hidden');
+                btnQuiz.className = "px-6 py-2 bg-indigo-600 text-white rounded-md font-semibold transition";
+                btnLearn.className = "px-6 py-2 bg-white text-gray-700 border border-gray-300 rounded-md font-semibold transition hover:bg-gray-100";
+            }
+        }
+
+        function submitQuiz(event) {
+            event.preventDefault();
+            let score = 0;
+            const form = event.target;
+            
+            quizData.forEach((q, index) => {
+                const feedbackDiv = document.getElementById(`feedback-${index}`);
+                feedbackDiv.style.display = "block";
+                
+                if (q.type === 'mcq') {
+                    const selected = form[`q${index}`].value;
+                    if (parseInt(selected) === q.answer) {
+                        score += 10;
+                        feedbackDiv.innerHTML = "정답입니다!";
+                        feedbackDiv.className = "feedback correct";
+                    } else {
+                        feedbackDiv.innerHTML = `오답입니다. 정답은 <strong>${q.options[q.answer]}</strong> 입니다.`;
+                        feedbackDiv.className = "feedback incorrect";
+                    }
+                } else if (q.type === 'short') {
+                    // 주관식 정답 처리 (공백 제거 후 비교)
+                    const userInput = form[`q${index}`].value.replace(/\s+/g, '');
+                    const correctAnswer = q.answer.replace(/\s+/g, '');
+                    
+                    if (userInput === correctAnswer) {
+                        score += 10;
+                        feedbackDiv.innerHTML = "정답입니다!";
+                        feedbackDiv.className = "feedback correct";
+                    } else {
+                        feedbackDiv.innerHTML = `오답입니다. 정답은 <strong>${q.answer}</strong> 입니다.`;
+                        feedbackDiv.className = "feedback incorrect";
+                    }
+                }
+            });
+
+            // 화면 표시 로직 변경
+            document.getElementById('total-score').innerText = score;
+            const resultMsg = document.getElementById('result-message');
+            if(score === 100) resultMsg.innerText = "완벽합니다! 모든 개념을 완벽히 이해하셨네요.";
+            else if(score >= 70) resultMsg.innerText = "잘 하셨습니다! 헷갈리는 개념만 다시 한번 복습해보세요.";
+            else resultMsg.innerText = "개념 학습하기 탭에서 조금 더 복습이 필요해 보입니다.";
+
+            document.getElementById('result-area').classList.remove('hidden');
+            document.getElementById('submit-btn').classList.add('hidden');
+            document.getElementById('retry-btn').classList.remove('hidden');
+            
+            // 맨 위로 스크롤
+            document.getElementById('result-area').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        function resetQuiz() {
+            document.getElementById('quiz-form').reset();
+            document.getElementById('result-area').classList.add('hidden');
+            document.getElementById('submit-btn').classList.remove('hidden');
+            document.getElementById('retry-btn').classList.add('hidden');
+            
+            // 피드백 메시지 숨기기
+            quizData.forEach((q, index) => {
+                document.getElementById(`feedback-${index}`).style.display = "none";
+            });
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>

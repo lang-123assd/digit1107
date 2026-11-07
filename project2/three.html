@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>⚡ RANDOM PICKER ⚡</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Canvas Confetti -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Noto+Sans+KR:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --neon-pink: #ff2a85;
+            --neon-cyan: #00f3ff;
+            --neon-purple: #bd00ff;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: #0b0c10;
+            color: white;
+            background-image: 
+                radial-gradient(circle at 15% 50%, rgba(255, 42, 133, 0.08), transparent 25%),
+                radial-gradient(circle at 85% 30%, rgba(0, 243, 255, 0.08), transparent 25%);
+        }
+
+        .title-font {
+            font-family: 'Black Han Sans', sans-serif;
+        }
+
+        /* 네온 텍스트 효과 */
+        .neon-text-cyan {
+            text-shadow: 0 0 5px var(--neon-cyan), 0 0 15px var(--neon-cyan), 0 0 30px var(--neon-cyan);
+        }
+        .neon-text-pink {
+            text-shadow: 0 0 5px var(--neon-pink), 0 0 15px var(--neon-pink), 0 0 30px var(--neon-pink);
+        }
+
+        /* 사이버펑크 버튼 스타일 */
+        .btn-cyber {
+            position: relative;
+            background: transparent;
+            border: 2px solid var(--neon-cyan);
+            color: var(--neon-cyan);
+            text-transform: uppercase;
+            box-shadow: 0 0 10px inset var(--neon-cyan), 0 0 10px var(--neon-cyan);
+            transition: all 0.2s ease-in-out;
+            overflow: hidden;
+        }
+        .btn-cyber:hover:not(:disabled) {
+            background: var(--neon-cyan);
+            color: #0b0c10;
+            box-shadow: 0 0 20px inset var(--neon-cyan), 0 0 30px var(--neon-cyan);
+            transform: scale(1.05);
+        }
+        .btn-cyber:active:not(:disabled) {
+            transform: scale(0.95);
+        }
+        .btn-cyber:disabled {
+            border-color: #555;
+            color: #555;
+            box-shadow: none;
+            cursor: not-allowed;
+        }
+
+        .btn-draw {
+            border-color: var(--neon-pink);
+            color: var(--neon-pink);
+            box-shadow: 0 0 15px inset var(--neon-pink), 0 0 15px var(--neon-pink);
+        }
+        .btn-draw:hover:not(:disabled) {
+            background: var(--neon-pink);
+            color: #fff;
+            box-shadow: 0 0 30px inset var(--neon-pink), 0 0 40px var(--neon-pink);
+        }
+        
+        .btn-draw:disabled {
+            border-color: #333;
+            color: #555;
+            box-shadow: inset 0 0 10px #000;
+            background: #111;
+            transform: none;
+        }
+
+        /* 패널 스타일 */
+        .glass-panel {
+            background: rgba(30, 34, 45, 0.7);
+            border: 1px solid rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 1rem;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+
+        /* 스크롤바 커스텀 */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #1e222d;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--neon-purple);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--neon-cyan);
+        }
+
+        /* 텍스트 롤링 효과를 위한 애니메이션 클래스 */
+        .rolling-text {
+            animation: vibrate 0.1s linear infinite both;
+            color: #fff;
+            text-shadow: 2px 2px 0px var(--neon-cyan), -2px -2px 0px var(--neon-pink);
+        }
+
+        @keyframes vibrate {
+            0% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(-2px, -2px); }
+            60% { transform: translate(2px, 2px); }
+            80% { transform: translate(2px, -2px); }
+            100% { transform: translate(0); }
+        }
+
+        /* 당첨 시 팝업 애니메이션 */
+        .winner-pop {
+            animation: pop-in 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+            color: var(--neon-cyan);
+            text-shadow: 0 0 20px var(--neon-cyan), 0 0 40px var(--neon-purple);
+        }
+
+        @keyframes pop-in {
+            0% { transform: scale(0.5); opacity: 0; }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .list-item-enter {
+            animation: slide-in 0.3s ease-out forwards;
+        }
+
+        @keyframes slide-in {
+            from { opacity: 0; transform: translateX(-20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+    </style>
+</head>
+<body class="min-h-screen flex flex-col p-4 md:p-8 overflow-hidden">
+
+    <!-- 헤더 -->
+    <header class="text-center mb-8">
+        <h1 class="title-font text-5xl md:text-7xl neon-text-cyan tracking-wider">랜덤 발표자 뽑기</h1>
+        <p class="text-gray-400 mt-2 text-sm md:text-base font-bold">LUCKY DRAW SYSTEM ACTIVATE</p>
+    </header>
+
+    <!-- 메인 레이아웃 Grid -->
+    <div class="flex-1 max-w-6xl w-full mx-auto grid grid-cols-1 md:grid-cols-4 gap-6">
+        
+        <!-- 왼쪽 패널: 남은 명단 -->
+        <div class="glass-panel p-5 flex flex-col h-[60vh] md:h-auto">
+            <div class="flex justify-between items-center mb-4 border-b border-gray-600 pb-2">
+                <h2 class="text-xl font-bold text-gray-200">대기 명단 <span class="text-xs text-gray-400">WAITING</span></h2>
+                <span id="remaining-count" class="bg-cyan-900 text-cyan-300 px-3 py-1 rounded-full text-sm font-bold shadow-[0_0_10px_#00f3ff]">0명</span>
+            </div>
+            
+            <div class="mb-4">
+                <label for="file-upload" class="btn-cyber w-full block text-center py-3 rounded cursor-pointer font-bold transition-all">
+                    <span class="mr-2">📁</span> 명단 업로드 (.txt / .csv)
+                </label>
+                <input id="file-upload" type="file" accept=".txt,.csv" class="hidden" onchange="handleFileUpload(event)">
+            </div>
+            
+            <div class="flex-1 overflow-y-auto space-y-2 pr-2" id="remaining-list">
+                <div class="text-center text-gray-500 mt-10 text-sm">
+                    명단 파일을 업로드해주세요.<br>
+                    (각 줄에 이름 한 명씩 작성)
+                </div>
+            </div>
+        </div>
+
+        <!-- 중앙 패널: 메인 추첨 화면 -->
+        <div class="md:col-span-2 flex flex-col justify-center items-center relative gap-8 py-10 md:py-0">
+            <!-- 디스플레이 창 -->
+            <div class="w-full max-w-sm aspect-video glass-panel flex justify-center items-center relative overflow-hidden border-2 border-gray-700">
+                <div class="absolute inset-0 bg-gradient-to-b from-transparent via-cyan-900/10 to-transparent pointer-events-none"></div>
+                <div id="winner-display" class="title-font text-3xl md:text-5xl text-gray-600 select-none z-10 transition-colors duration-300 text-center">
+                    명단을<br>업로드하세요
+                </div>
+            </div>
+
+            <!-- 컨트롤 버튼 -->
+            <button id="draw-btn" onclick="startDraw()" class="btn-cyber btn-draw text-2xl title-font py-4 px-12 rounded-full tracking-widest disabled:opacity-40 disabled:cursor-not-allowed z-20" disabled>
+                뽑기 시작!
+            </button>
+            <button onclick="resetSystem()" class="text-gray-500 hover:text-white underline text-sm transition-colors mt-2">
+                시스템 초기화 (Reset)
+            </button>
+        </div>
+
+        <!-- 오른쪽 패널: 당첨자 명단 -->
+        <div class="glass-panel p-5 flex flex-col h-[60vh] md:h-auto">
+            <div class="flex justify-between items-center mb-4 border-b border-gray-600 pb-2">
+                <h2 class="text-xl font-bold text-gray-200">선정 명단 <span class="text-xs text-gray-400">SELECTED</span></h2>
+                <span id="selected-count" class="bg-pink-900 text-pink-300 px-3 py-1 rounded-full text-sm font-bold shadow-[0_0_10px_#ff2a85]">0명</span>
+            </div>
+            
+            <div class="flex-1 overflow-y-auto space-y-3 pr-2" id="selected-list">
+                <!-- 선정된 리스트 들어갈 곳 -->
+                <div class="text-center text-gray-600 mt-10 text-sm" id="empty-selected-msg">
+                    아직 선정된 사람이<br>없습니다.
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        let remainingStudents = [];
+        let selectedStudents = [];
+        let isDrawing = false;
+        let drawInterval;
+
+        // DOM 요소 캐싱
+        const remainingListEl = document.getElementById('remaining-list');
+        const selectedListEl = document.getElementById('selected-list');
+        const remainingCountEl = document.getElementById('remaining-count');
+        const selectedCountEl = document.getElementById('selected-count');
+        const winnerDisplayEl = document.getElementById('winner-display');
+        const drawBtnEl = document.getElementById('draw-btn');
+        const emptySelectedMsg = document.getElementById('empty-selected-msg');
+
+        // 파일 업로드 처리
+        function handleFileUpload(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const text = e.target.result;
+                // 줄바꿈 기준으로 분리, 양쪽 공백 제거, 빈 줄 제거
+                const rawList = text.split(/\r?\n/).map(name => name.trim()).filter(name => name.length > 0);
+                
+                // 중복 제거 및 리스트 업데이트 (옵션: 이름 중복을 허용하려면 Set을 쓰지 않아도 됨. 여기선 혹시 모를 완전 동일 텍스트 중복 방지)
+                remainingStudents = [...new Set([...remainingStudents, ...rawList])];
+                
+                updateUI();
+                
+                // 디스플레이 초기화
+                winnerDisplayEl.innerText = "READY";
+                winnerDisplayEl.className = "title-font text-5xl md:text-6xl text-gray-600 select-none z-10 transition-colors duration-300";
+            };
+            // 텍스트나 CSV 인코딩 깨짐 방지를 위해 UTF-8 명시
+            reader.readAsText(file, "UTF-8");
+            
+            // 동일 파일 재업로드를 위해 input 초기화
+            event.target.value = '';
+        }
+
+        // UI 업데이트
+        function updateUI() {
+            // 카운트 업데이트
+            remainingCountEl.innerText = `${remainingStudents.length}명`;
+            selectedCountEl.innerText = `${selectedStudents.length}명`;
+
+            // 대기 명단 렌더링
+            remainingListEl.innerHTML = '';
+            if (remainingStudents.length === 0) {
+                remainingListEl.innerHTML = `
+                    <div class="text-center text-gray-500 mt-10 text-sm">
+                        대기열이 비어있습니다.
+                    </div>`;
+                drawBtnEl.disabled = true;
+            } else {
+                drawBtnEl.disabled = false;
+                remainingStudents.forEach((student) => {
+                    const div = document.createElement('div');
+                    div.className = 'bg-gray-800/50 p-3 rounded-lg border border-gray-700 text-gray-300 font-bold';
+                    div.innerText = student;
+                    remainingListEl.appendChild(div);
+                });
+            }
+
+            // 선정 명단 렌더링 (새로 뽑힌 사람이 맨 위에 오도록 역순)
+            selectedListEl.innerHTML = '';
+            if (selectedStudents.length === 0) {
+                selectedListEl.appendChild(emptySelectedMsg);
+                emptySelectedMsg.style.display = 'block';
+            } else {
+                if(emptySelectedMsg) emptySelectedMsg.style.display = 'none';
+                
+                [...selectedStudents].reverse().forEach((student, index) => {
+                    const div = document.createElement('div');
+                    // 첫 번째 요소(방금 뽑힌 사람)에게 하이라이트 및 애니메이션 부여
+                    if(index === 0) {
+                        div.className = 'bg-pink-900/30 p-3 rounded-lg border border-pink-500 text-pink-200 font-bold flex justify-between items-center shadow-[0_0_10px_rgba(255,42,133,0.3)] list-item-enter';
+                    } else {
+                        div.className = 'bg-gray-800/50 p-3 rounded-lg border border-gray-600 text-gray-400 font-bold flex justify-between items-center';
+                    }
+                    
+                    const nameSpan = document.createElement('span');
+                    nameSpan.innerText = student;
+                    
+                    const orderSpan = document.createElement('span');
+                    orderSpan.className = 'text-xs opacity-50';
+                    orderSpan.innerText = `#${selectedStudents.length - index}`;
+
+                    div.appendChild(nameSpan);
+                    div.appendChild(orderSpan);
+                    selectedListEl.appendChild(div);
+                });
+            }
+        }
+
+        // 추첨 시작
+        function startDraw() {
+            if (remainingStudents.length === 0 || isDrawing) return;
+            
+            isDrawing = true;
+            drawBtnEl.disabled = true;
+            
+            // 디스플레이 애니메이션 세팅
+            winnerDisplayEl.className = "title-font text-5xl md:text-7xl rolling-text select-none z-10";
+
+            let duration = 2500; // 두구두구 시간 2.5초
+            let intervalTime = 50; // 이름 바뀌는 속도
+            let elapsed = 0;
+
+            // 효과음 느낌을 주기 위해 빠르게 텍스트 교체
+            drawInterval = setInterval(() => {
+                const randomIndex = Math.floor(Math.random() * remainingStudents.length);
+                winnerDisplayEl.innerText = remainingStudents[randomIndex];
+                
+                elapsed += intervalTime;
+                
+                // 서서히 느려지는 효과
+                if (elapsed > duration * 0.7) {
+                    clearInterval(drawInterval);
+                    intervalTime += 50;
+                    if(elapsed < duration) {
+                       resumeDrawTimer(intervalTime, duration - elapsed); 
+                    } else {
+                        finalizeDraw();
+                    }
+                }
+            }, intervalTime);
+        }
+
+        function resumeDrawTimer(intervalTime, timeRemaining) {
+            let elapsed = 0;
+            drawInterval = setInterval(() => {
+                 const randomIndex = Math.floor(Math.random() * remainingStudents.length);
+                winnerDisplayEl.innerText = remainingStudents[randomIndex];
+                elapsed += intervalTime;
+                if(elapsed >= timeRemaining) {
+                    clearInterval(drawInterval);
+                    finalizeDraw();
+                }
+            }, intervalTime);
+        }
+
+        // 추첨 완료
+        function finalizeDraw() {
+            const winnerIndex = Math.floor(Math.random() * remainingStudents.length);
+            const winner = remainingStudents[winnerIndex];
+
+            // 데이터 이동
+            remainingStudents.splice(winnerIndex, 1);
+            selectedStudents.push(winner);
+
+            // 디스플레이 업데이트 (당첨 애니메이션)
+            winnerDisplayEl.innerText = winner;
+            winnerDisplayEl.className = "title-font text-6xl md:text-8xl winner-pop select-none z-10";
+
+            // 폭죽 효과 트리거
+            shootConfetti();
+
+            // UI 갱신
+            updateUI();
+            
+            isDrawing = false;
+        }
+
+        // 화려한 폭죽 효과 (canvas-confetti)
+        function shootConfetti() {
+            var duration = 3000;
+            var animationEnd = Date.now() + duration;
+            var defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 100 };
+
+            function randomInRange(min, max) {
+                return Math.random() * (max - min) + min;
+            }
+
+            var interval = setInterval(function() {
+                var timeLeft = animationEnd - Date.now();
+
+                if (timeLeft <= 0) {
+                    return clearInterval(interval);
+                }
+
+                var particleCount = 50 * (timeLeft / duration);
+                
+                // 양쪽에서 쏘기
+                confetti(Object.assign({}, defaults, { 
+                    particleCount, 
+                    origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 },
+                    colors: ['#00f3ff', '#ff2a85', '#bd00ff', '#ffffff']
+                }));
+                confetti(Object.assign({}, defaults, { 
+                    particleCount, 
+                    origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 },
+                    colors: ['#00f3ff', '#ff2a85', '#bd00ff', '#ffffff']
+                }));
+            }, 250);
+        }
+
+        // 전체 초기화
+        function resetSystem() {
+            if(confirm("모든 데이터를 초기화하시겠습니까? (명단이 모두 삭제됩니다)")) {
+                remainingStudents = [];
+                selectedStudents = [];
+                winnerDisplayEl.innerHTML = "명단을<br>업로드하세요";
+                winnerDisplayEl.className = "title-font text-3xl md:text-5xl text-gray-600 select-none z-10 transition-colors duration-300 text-center";
+                updateUI();
+            }
+        }
+        
+        // 초기 UI 설정
+        updateUI();
+    </script>
+</body>
+</html>
